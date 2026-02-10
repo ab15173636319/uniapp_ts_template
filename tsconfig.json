@@ -1,0 +1,31 @@
+{
+  "exclude": ["src/components/navegition.vue"],
+  "compilerOptions": {
+    "module": "nodenext",
+    "target": "esnext",
+    "types": ["@dcloudio/types", "miniprogram-api-typings", "@uni-helper/uni-app-types"],
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "strict": true,
+    "jsx": "react-jsx",
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@utils/*": ["src/utils/*"],
+      "@static/*": ["src/static/*"],
+      "@store/*": ["src/store/*"]
+    }
+  },
+  "vueCompilerOptions": {},
+  "include": ["src/**/*", "svg-icons.d.ts"]
+}
