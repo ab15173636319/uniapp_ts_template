@@ -2,7 +2,7 @@
   <view class="content">
     <view>
       <text>图标组件：</text>
-      <Icon name="arrow" class="icon"></Icon>
+      <LIcon name="arrow" class="icon"></LIcon>
     </view>
 
     <view class="counter">
@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 import { useCountStore } from '@/store/modules/count'
-import Icon from '@components/Icon.vue'
 
 const countStore = useCountStore()
 </script>

@@ -24,9 +24,16 @@
 ```
 uni-preset-vue/
 ├── src/
+│   ├── components/      # 组件目录
+│   │   └── LIcon    # 图标组件
 │   ├── pages/           # 页面目录
 │   │   └── index/       # 首页
 │   ├── static/          # 静态资源
+│   │   └── icons/       # SVG 图标
+│   ├── store/           # 状态管理
+│   │   ├── index.ts     # Pinia 初始化
+│   │   └── modules/     # 模块目录
+│   │       └── count.ts # 计数器模块
 │   ├── utils/           # 工具函数
 │   │   └── http.ts      # 网络请求封装
 │   ├── App.vue          # 根组件
@@ -109,6 +116,107 @@ pnpm run build:mp-weixin
 
 - `.env.development`: 开发环境配置
 - `.env.test`: 测试环境配置
+
+## 路径别名配置
+
+项目配置了以下路径别名，简化文件引入：
+
+| 别名 | 对应路径 | 使用示例 |
+|------|----------|----------|
+| `@` | `src` | `import Http from '@/utils/http'` |
+| `@components` | `src/components` | `import Icon from '@components/Icon.vue'` |
+| `@pages` | `src/pages` | `import Index from '@pages/index/index.vue'` |
+| `@utils` | `src/utils` | `import Http from '@utils/http.ts'` |
+| `@static` | `src/static` | `import logo from '@static/logo.png'` |
+| `@store` | `src/store` | `import { useCountStore } from '@store/modules/count'` |
+
+## LIcon 组件使用
+
+项目提供了 `LIcon` 组件，支持以下属性：
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `name` | String | 必填 | 图标名称 |
+| `size` | String/Number | '24px' | 图标大小 |
+| `color` | String | '#333' | 图标颜色 |
+| `active` | Boolean | false | 是否激活状态 |
+| `animationDuration` | Number | 300 | 动画时间（毫秒） |
+| `animationDelay` | Number | 100 | 动画延时（毫秒） |
+| `customStyle` | Object | {} | 自定义样式 |
+
+### 使用示例
+
+```vue
+<template>
+  <view>
+    <!-- 基本使用 -->
+    <LIcon name="arrow" />
+    
+    <!-- 自定义大小和颜色 -->
+    <LIcon name="arrow" size="32px" color="#007aff" />
+    
+    <!-- 数字大小 -->
+    <LIcon name="arrow" size="48" />
+    
+    <!-- 激活状态 -->
+    <LIcon name="arrow" active />
+    
+    <!-- 自定义动画 -->
+    <LIcon name="arrow" animationDuration="500" animationDelay="200" />
+  </view>
+</template>
+
+<script setup lang="ts">
+import LIcon from '@components/LIcon.vue'
+</script>
+```
+
+## Store 使用
+
+项目使用 Pinia 进行状态管理，示例代码：
+
+### 定义 Store
+
+```typescript
+// src/store/modules/count.ts
+import { defineStore } from 'pinia'
+import { computed, ref } from 'vue'
+
+export const useCountStore = defineStore('count', () => {
+  const count = ref(0)
+  const doubleCount = computed(() => count.value * 2)
+  function increment() {
+    count.value++
+  }
+  function decrement() {
+    count.value--
+  }
+  return {
+    count,
+    doubleCount,
+    increment,
+    decrement,
+  }
+})
+```
+
+### 使用 Store
+
+```vue
+<script setup lang="ts">
+import { useCountStore } from '@/store/modules/count'
+
+const countStore = useCountStore()
+
+// 使用状态
+console.log(countStore.count)
+console.log(countStore.doubleCount)
+
+// 调用方法
+countStore.increment()
+countStore.decrement()
+</script>
+```
 
 ## 网络请求
 
